@@ -2,11 +2,16 @@ import { useContext } from "react"
 import { TodoContext } from "../App"
 import '../App.css'
 
-const TodoList = () => {
+const TodoList = (props) => {
     const {todosList} = useContext(TodoContext)
-    // const {modifyTodoData} = useContext(ContentContext)
 
-    const modifyTodo = (todoName,todoDesc) => {
+    //onEdit button, reloading the TodoName & TodoDesc to the MyTodo Form     
+    const modifyTodo = (e) => {
+        e.preventDefault()
+        console.log(e)
+        //receiving the state from Header component and passing values
+        props.setEditName(e.target[0].value)
+        props.setEditDesc(e.target[1].value)
     }
 
   return (
@@ -32,6 +37,7 @@ const TodoList = () => {
         <div className="todoCards">
         {todosList.map(todos => 
             
+            <form onSubmit={modifyTodo}>
              <div key={todos.id} className="card" style={
                 {
                     height:"250px",
@@ -39,8 +45,8 @@ const TodoList = () => {
                     margin:"10px"                    
                     }}>
                 <div className = "card-body">
-                    <b>Name :</b> {todos.name} <br />
-                    <b>Description:</b> {todos.description} <br />
+                    <label htmlFor="name"><b>Name :</b></label> <input type="text" id="todo-val-name" value={todos.name}></input> <br />
+                    <label htmlFor="desc"><b>Description:</b></label> <input type="text" id="todo-val-desc" value={todos.description}></input> <br />
                     <b>Status:</b> 
                         <div className="btn-group">
                             <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
@@ -54,12 +60,12 @@ const TodoList = () => {
                         <div>
                             <span className="todo-btn-modify">
                             <button type="button" className="btn btn-danger" style = {{width:"100px"}}>Delete</button>
-                            <button type="button" className="btn btn-success" style = {{width:"100px"}} onClick={(modifyTodo(todos.name,todos.desc))}>Edit</button>
+                            <button type="submit" className="btn btn-success" style = {{width:"100px"}}>Edit</button>
                             </span>
                         </div>
                 </div>
              </div>
-            
+             </form>
         )
         }
        </div>

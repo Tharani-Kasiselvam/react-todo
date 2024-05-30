@@ -34,6 +34,7 @@ const App = () => {
   }
 
   const editTodo = (name,desc) => {
+    console.log("inside editTodo")
     setEditName(name)
     setEditDesc(desc)
   }
@@ -46,7 +47,6 @@ const App = () => {
     <div>
       <TodoContext.Provider value = {{addTodo,todosList,editTodo}} >
       <Header setEditName={setEditName} setEditDesc={setEditDesc} editName={editName} editDesc={editDesc}/>
-      <TodoList />
       </TodoContext.Provider>
     </div>
   )

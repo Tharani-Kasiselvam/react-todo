@@ -1,26 +1,27 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 import '../../src/App.css'
 import { TodoContext } from '../App'
+import TodoList from './TodoList'
 
 const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
   const {addTodo} = useContext(TodoContext)
-  const {editTodo} = useContext(TodoContext)
+
 
   const loadTodo = (e) => {
+    e.preventDefault()
     const name = e.target[0].value
     const desc = e.target[1].value
     const status = "Not Completed"
-    setEditName("")
-    setEditDesc("")
-    e.preventDefault()
     console.log(e)
     addTodo (name, desc, status)
+    setEditName("")
+    setEditDesc("")
     
   }
 
-    // const modifyTodoData = (todoName, todoDesc) => {
-    //   console.log(document.getElementsByClassName("todo-form"))
-    // }
+  const editTodo = (name,desc) =>{
+      console.log("testing")
+  }
 
   return (
     <div>
@@ -31,6 +32,7 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
                 <button className="btn btn-primary" style = {{width:"100px",height:"45px",marginBottom:"7px"}}>Add Todo</button>
             </form>
         </div>
+        <TodoList setEditName={setEditName} setEditDesc={setEditDesc}/>
     </div>
   )
 }
