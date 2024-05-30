@@ -6,6 +6,8 @@ import { useState } from "react";
 export const TodoContext = createContext();
 
 const App = () => {
+  const [editName,setEditName] = useState("")
+  const [editDesc,setEditDesc] = useState("")
   const [todosList,setTodos] = useState([
     {
       id : 1,
@@ -31,8 +33,9 @@ const App = () => {
     setTodos([...todosList,newTodo])
   }
 
-  const editTodo = () => {
-    
+  const editTodo = (name,desc) => {
+    setEditName(name)
+    setEditDesc(desc)
   }
 
   const removeTodo = (name, desc) => {
@@ -41,8 +44,8 @@ const App = () => {
 
   return (
     <div>
-      <TodoContext.Provider value = {{addTodo,todosList}} >
-      <Header />
+      <TodoContext.Provider value = {{addTodo,todosList,editTodo}} >
+      <Header setEditName={setEditName} setEditDesc={setEditDesc} editName={editName} editDesc={editDesc}/>
       <TodoList />
       </TodoContext.Provider>
     </div>
