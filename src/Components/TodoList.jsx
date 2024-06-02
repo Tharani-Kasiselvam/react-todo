@@ -3,15 +3,17 @@ import { TodoContext } from "../App"
 import '../App.css'
 
 const TodoList = (props) => {
-    const {todosList} = useContext(TodoContext)
-
+    const {todosList,modifyformId} = useContext(TodoContext)
     //onEdit button, reloading the TodoName & TodoDesc to the MyTodo Form     
     const modifyTodo = (e) => {
         e.preventDefault()
         console.log(e)
+        const editId = e.target[4].id
+        console.log(editId)
         //receiving the state from Header component and passing values
         props.setEditName(e.target[0].value)
         props.setEditDesc(e.target[1].value)
+        modifyformId(editId)
     }
 
   return (
@@ -38,7 +40,7 @@ const TodoList = (props) => {
         {todosList.map(todos => 
             
             <form onSubmit={modifyTodo}>
-             <div key={todos.id} className="card" style={
+             <div className="card" style={
                 {
                     height:"250px",
                     width:"350px",
@@ -46,6 +48,7 @@ const TodoList = (props) => {
                     }}>
                 <div className = "card-body">
                     <label htmlFor="name"><b>Name :</b></label> <input type="text" id="todo-val-name" value={todos.name}></input> <br />
+                    {console.log("Checking Desc in CARDS:", todos.description)}
                     <label htmlFor="desc"><b>Description:</b></label> <input type="text" id="todo-val-desc" value={todos.description}></input> <br />
                     <b>Status:</b> 
                         <div className="btn-group">
@@ -60,7 +63,7 @@ const TodoList = (props) => {
                         <div>
                             <span className="todo-btn-modify">
                             <button type="button" className="btn btn-danger" style = {{width:"100px"}}>Delete</button>
-                            <button type="submit" className="btn btn-success" style = {{width:"100px"}}>Edit</button>
+                            <button type="submit" id={todos.id} className="btn btn-success" style = {{width:"100px"}}>Edit</button>
                             </span>
                         </div>
                 </div>

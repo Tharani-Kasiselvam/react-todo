@@ -13,14 +13,10 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
     const desc = e.target[1].value
     const status = "Not Completed"
     console.log(e)
+    console.log("Checking Desc value: ", e.target[1].value)
     addTodo (name, desc, status)
     setEditName("")
     setEditDesc("")
-    
-  }
-
-  const editTodo = (name,desc) =>{
-      console.log("testing")
   }
 
   return (
