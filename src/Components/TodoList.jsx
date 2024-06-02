@@ -3,7 +3,7 @@ import { TodoContext } from "../App"
 import '../App.css'
 
 const TodoList = (props) => {
-    const {todosList,modifyformId} = useContext(TodoContext)
+    const {todosList,modifyformId,removeTodo} = useContext(TodoContext)
     //onEdit button, reloading the TodoName & TodoDesc to the MyTodo Form     
     const modifyTodo = (e) => {
         e.preventDefault()
@@ -14,6 +14,12 @@ const TodoList = (props) => {
         props.setEditName(e.target[0].value)
         props.setEditDesc(e.target[1].value)
         modifyformId(editId)
+    }
+
+    const deleteTodo = (e) => {
+        console.log(e)
+        console.log(e.target.id)
+        removeTodo(e.target.id)
     }
 
   return (
@@ -62,7 +68,7 @@ const TodoList = (props) => {
                         </div> <br /><br />
                         <div>
                             <span className="todo-btn-modify">
-                            <button type="button" className="btn btn-danger" style = {{width:"100px"}}>Delete</button>
+                            <button type="button" id={todos.id} className="btn btn-danger" style = {{width:"100px"}} onClick={deleteTodo}>Delete</button>
                             <button type="submit" id={todos.id} className="btn btn-success" style = {{width:"100px"}}>Edit</button>
                             </span>
                         </div>

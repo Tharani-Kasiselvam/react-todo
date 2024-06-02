@@ -24,11 +24,14 @@ const App = () => {
       status : "Completed"
     }
   ])
+
+  //Method to ADD a new Todo or to reload the Existing Todo with EDITED data
   const addTodo = (name, description, status) => {
     let counter = 0
       for(let key in todosList){
         let id_val = todosList[key].id
         console.log("EDIT - ID VALUE: formid- ",formId, "todolistid-", id_val)
+          //To identify whether the Todo is a NEW or EXISTING
           if(formId == id_val){
             console.log("EDIT - ID MATCHES")
             counter++
@@ -36,10 +39,12 @@ const App = () => {
             break;
           }
       }
+      //Alerts if EMPTY values submitted
       if(name=="" || description==""){
         alert("Kindly enter Todo Name and Todo Description")
       }
       else{
+        //This block is to ADD NEW TODO
         if(counter==0){
           console.log("EDIT - ID NOT MATCHED")
           const newTodo = {
@@ -57,7 +62,8 @@ const App = () => {
     console.log("Verification of ID: ",editId)
     setformId(editId)
   }
-  
+
+  //Method to modify the value in specific Todo form
   const editTodo = (id,name,desc) => {
     const editedTodo = todosList.map(obj => {
       if(obj.id == id){
@@ -70,13 +76,16 @@ const App = () => {
     setformId(0)
   }
 
-  const removeTodo = (name, desc) => {
-    
+  const removeTodo = (rmvId) => {
+    console.log("Inside DEL/REMOVE : ",rmvId)
+    const todos_afterDel = todosList.filter(obj => obj.id != rmvId)
+    console.log(todos_afterDel)
+    setTodos(todos_afterDel)
   }
 
   return (
     <div>
-      <TodoContext.Provider value = {{addTodo,todosList,editTodo,modifyformId}} >
+      <TodoContext.Provider value = {{addTodo,todosList,editTodo,modifyformId,removeTodo}} >
       <Header setEditName={setEditName} setEditDesc={setEditDesc} editName={editName} editDesc={editDesc}/>
       </TodoContext.Provider>
     </div>
