@@ -61,3 +61,10 @@
   flex-direction: row-reverse; 
   gap : 10px 
 }
+
+.loadtodo{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-left: 100px;
+}
