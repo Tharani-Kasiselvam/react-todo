@@ -64,26 +64,8 @@ const TodoList = (props) => {
  
 return (
     <div>
-        {console.log("In TODOLIST Comp RELOAD data: ", reloadTodo)}
-        {/* <div className="todo-list">
-        <div className="list-head">
-            <div className="mytodo">My Todos</div>
-            <div className="status_filter">Status Filter:
-              <select id="hdrSelect" className="All" onChange={onSelectChange}>
-                <option className="all" value="All" selected>All</option> 
-                <option className="comp" value="Completed">Completed</option> 
-                <option className="ncomp" value="Not Completed">Not Completed</option> 
-              </select> 
-            </div>
-        </div>
-        {console.log("---todoSelStatus: ",todoSelStatus)} */}
-
-        {/* {loadTodos()} */}
-        {/* <div className="todoCards"> */}
-        {/* {todosList.map((todos) =>  */}
+        {console.log("In TODOLIST Comp RELOAD data: ", props.todos)}
         
-        {/* Loading the Todos List based on the Status, by default it will load all the Todos list */}
-        {/* {todosList.map((todos) => */}
             <form onSubmit={modifyTodo}>
                 <div className="card" style={
                     {
@@ -107,11 +89,7 @@ return (
                     </div>
                 </div>
             </form>
-    {/* )} */}
-        
-       {/* </div> */}
-       {/* </div> */}
-    </div>
+     </div>
   )
 }
 

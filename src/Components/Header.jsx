@@ -7,8 +7,18 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
   const {addTodo,todosList,updatereloadTodo,reloadTodo} = useContext(TodoContext)
   const [todoSelStatus,settodoSelStatus] = useState("All")
 
-  // let reloadTodo = todosList
+  let todoArr = [];
+  //Loading Todos List
+   const todoListLoad = (tmptodosList) =>{ 
+    todoArr = [];
+    console.log("Inside TODOLISTLOAD") 
+    for(let i=0;i<tmptodosList.length;i++){
+      console.log(tmptodosList[i])
+      todoArr.push(<TodoList key={tmptodosList[i].id} todos = {tmptodosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+    }
+  }
   
+  //loding the new Todos before adding into the coponent
   const loadTodo = (e) => {
     e.preventDefault()
     const name = e.target[0].value
@@ -21,35 +31,16 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
     setEditDesc("")
   }
 
+  //On changing the header Status Filter -- Need assistance
    const onSelectChange = (event) => {
     console.log("dropdown sel:",event.target.value)
     const selectedStatus = event.target.value
-    // updateSelStatus(selectedStatus)
-    if(selectedStatus == "All"){
-      console.log("inside All todoSelStatus")
-        document.getElementById("hdrSelect").className="all"
-        const allTodos = todosList
-        updatereloadTodo(allTodos)
+    
+    const statusTodos = todosList.filter(todoObj => todoObj.status==selectedStatus)
+    todoListLoad(statusTodos)
     }
-    if(selectedStatus == "Completed"){
-      console.log("inside Completed todoSelStatus")
-        document.getElementById("hdrSelect").className="comp"
-        const compTodos = todosList.filter(obj => obj.status=="Completed")
-        updatereloadTodo(compTodos)
-    }
-    if(selectedStatus == "Not Completed"){
-        document.getElementById("hdrSelect").className="ncomp"
-        const ncompTodos = todosList.filter(obj => obj.status=="Not Completed")
-        updatereloadTodo(ncompTodos)
-    }    
-}
-
-    let todoArr = [];
-    for(let i=0;i<todosList.length;i++){
-      console.log(todosList[i])
-      todoArr.push(<TodoList key={todosList[i].id} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
-    }
-
+  
+    
   return (
     <div>
         <div className="header">My ToDo <br /><br />
@@ -75,11 +66,11 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
         {console.log("In Header Comp curr RELOAD TODO values: ",reloadTodo)}
         {console.log("In Header Comp curr ACTUAL TODO values: ",todosList)}
         <div className="loadtodo">
+          {todoListLoad(todosList)}
           {todoArr}
         </div>
         </div>
         </div>
-    // </div>
   )
 }
 
