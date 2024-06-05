@@ -1,10 +1,12 @@
 import { createContext, useContext, useState } from 'react'
 import '../../src/App.css'
 import { TodoContext } from '../App'
-import TodoList from './TodoList'
+import TodoList, { TodoListContext } from './TodoList'
+export const TodoContentsContext = createContext()
 
-const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
-  const {addTodo,todosList,updatereloadTodo,reloadTodo} = useContext(TodoContext)
+const Header = () => {
+  const {addTodo,todosList,statFormId,todoStat,setEditName,setEditDesc,editName,editDesc} = useContext(TodoContext)
+  const {reLoadTodoList} = useContext(TodoListContext)
   const [todoSelStatus,settodoSelStatus] = useState("All")
   const [hdrStatus,sethdrStatus] = useState("All")
 
@@ -14,22 +16,30 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
    const todoListLoad = (todosList,hdrStatus) =>{ 
     todoArr = [];
     console.log("List of data to load the TodosList") 
-    let statusTodos;
-    // let j=-1;
+
     //Loading Todos List based on the Overall Status Filter
     for(let i=0;i<todosList.length;i++){
       console.log(todosList[i])
       console.log("Inside elseIf of hdrstatus : ",hdrStatus,"---todoStatus:", todosList[i].status)
+      console.log("Verifying Todo ID: ", todosList[i].id, "&statFormId:", statFormId,"&todoStat:",todoStat)
+      console.log("hdrStatus is:", hdrStatus)
+      todoArr.push(<TodoList key={todosList[i].id} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+      // if(statFormId==todosList[i].id){
+      //   todosList[i].status = todoStat
+      // }
 
-      if(hdrStatus=='All'){
-        todoArr.push(<TodoList key={todosList[i].id} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
-      }
-      else if(todosList[i].status == hdrStatus){
-        // j++
-        // statusTodos = todosList.filter(todoObj => todoObj.status==hdrStatus)
-        // console.log("Compelted StatusTodos:",statusTodos[0])
+    //   if(hdrStatus=='All'){
+    //     console.log("hdrStatus is:", hdrStatus)
+    //     todoArr.push(<TodoList key={todosList[i].id} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+    //   }
+      if(hdrStatus=='Completed'){
+        console.log("hdrStatus is:", hdrStatus)
         todoArr.push(<TodoList key={todosList[i]} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
       }
+    //   if(hdrStatus=='Not Completed'){
+    //     console.log("hdrStatus is:", hdrStatus)
+    //     todoArr.push(<TodoList key={todosList[i]} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+    //   }
     }
    }
   
@@ -46,14 +56,11 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
     setEditDesc("")
   }
 
-  //On changing the header Status Filter -- Need assistance
+  //On changing the header Status Filter - modifies the State with latest status
    const onSelectChange = (event) => {
-    console.log("dropdown sel:",event.target.value)
+    // console.log("dropdown sel:",event.target.value)
     sethdrStatus(event.target.value)
-    console.log("State change dropdown sel:",hdrStatus)
-    // const selectedStatus = event.target.value
-    // const statusTodos = todosList.filter(todoObj => todoObj.status==selectedStatus)
-    // todoListLoad(statusTodos)
+    // console.log("State change dropdown sel:",hdrStatus)
     }
 
     const setStatusColor = () => {
@@ -70,6 +77,7 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
     
   return (
     <div>
+      <TodoContentsContext.Provider value = {{hdrStatus}}>
         <div className="header">My ToDo <br /><br />
             <form className="todo-form" onSubmit={loadTodo}>
                 <input type="text" id="editName" value={editName} onChange={(e)=>setEditName(e.target.value)} placeholder='Todo Name' style = {{width:"300px", margin:"10px"}}/>   
@@ -92,11 +100,13 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
         </div>
         {/* {console.log("In Header Comp curr RELOAD TODO values: ",reloadTodo)}
         {console.log("In Header Comp curr ACTUAL TODO values: ",todosList)} */}
-        <div className="loadtodo">
-          {todoListLoad(todosList,hdrStatus)}
-          {todoArr}
+        <div>
+          {/* {todoListLoad(todosList,hdrStatus)}
+          {todoArr} */}
+          <TodoList />
         </div>
         </div>
+        </TodoContentsContext.Provider>
         </div>
   )
 }

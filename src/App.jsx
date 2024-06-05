@@ -1,15 +1,20 @@
-import { createContext, useRef } from "react"
+import { createContext, useContext, useRef } from "react"
 import Header from "./Components/Header"
-import TodoList from "./Components/TodoList"
+import TodoList, { TodoListContext } from "./Components/TodoList"
 import { useState } from "react";
+// import { TodoListContext } from "./Components/TodoList";
 
 export const TodoContext = createContext();
 
 
 const App = () => {
+  const {reLoadTodoList} = useContext(TodoListContext)
   const [editName,setEditName] = useState("")
   const [editDesc,setEditDesc] = useState("")
   const [formId,setformId] = useState(0)
+  // const [statFormId,setStatFormId] = useState(0)
+  const [todoStat,setTodoStat] = useState("")
+  // const {todoStat,statFormId} = useContext(TodoListContext)
   const [todosList,setTodos] = useState([
     {
       id : 1,
@@ -35,7 +40,7 @@ const App = () => {
           if(formId == id_val){
             console.log("EDIT - ID MATCHES")
             counter++
-            editTodo(id_val,editName,editDesc)
+            editTodo(id_val,editName,editDesc,status)
             break;
           }
       }
@@ -64,7 +69,7 @@ const App = () => {
   }
 
   //Method to modify the value in specific Todo form
-  const editTodo = (id,name,desc) => {
+  const editTodo = (id,name,desc,status) => {
     const editedTodo = todosList.map(obj => {
       if(obj.id == id){
         return {...obj, name: name, description:desc}
@@ -76,6 +81,26 @@ const App = () => {
     setformId(0)
   }
 
+  const updateTodoStatus = (id,status) => {
+    // setStatFormId(id)
+    // setTodoStat(status)
+
+    // const todoStatChng = todosList.map(obj => {
+    //   console.log("Verifying Todo ID: ", obj.id, "&statFormId:", statFormId)
+    // })
+    //   if(obj.id == statFormId){
+    //       console.log("Verifying STATUS change in TODO: ",
+    //       statFormId,"----",todoStat)
+    //     return {...obj, status:todoStat}
+    //   }
+    //   return obj
+    // })
+    // console.log("on TODO STATUS Change: ", todoStatChng)
+    // // updateTodoStatus(todoStatChng)
+
+    // setTodos(statTodo)
+  }
+
   const removeTodo = (rmvId) => {
     // console.log("Inside DEL/REMOVE : ",rmvId)
     const todos_afterDel = todosList.filter(obj => obj.id != rmvId)
@@ -85,8 +110,10 @@ const App = () => {
 
   return (
     <div>
-      <TodoContext.Provider value = {{addTodo,todosList,editTodo,modifyformId,removeTodo}} >
-      <Header setEditName={setEditName} setEditDesc={setEditDesc} editName={editName} editDesc={editDesc}/>
+      <TodoContext.Provider value = {{addTodo,todosList,editTodo,modifyformId,removeTodo,updateTodoStatus,
+        setEditName,setEditDesc,editName,editDesc}} > {/*,statFormId,todoStat */}
+      {/* <Header setEditName={setEditName} setEditDesc={setEditDesc} editName={editName} editDesc={editDesc}/> */}
+      <Header />
       </TodoContext.Provider>
     </div>
   )
