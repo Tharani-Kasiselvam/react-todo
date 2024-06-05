@@ -10,9 +10,9 @@ const TodoList = (props) => {
     //onEdit button, reloading the TodoName & TodoDesc to the MyTodo Form     
     const modifyTodo = (e) => {
         e.preventDefault()
-        console.log(e)
+        // console.log(e)
         const editId = e.target[4].id
-        console.log(editId)
+        // console.log(editId)
         //receiving the state from Header component and passing values
         props.setEditName(e.target[0].value)
         props.setEditDesc(e.target[1].value)
@@ -21,8 +21,8 @@ const TodoList = (props) => {
 
     //onDelete button, capturing the FormID for the selected Todo which has to Deleted
     const deleteTodo = (e) => {
-        console.log(e)
-        console.log(e.target.id)
+        // console.log(e)
+        // console.log(e.target.id)
         removeTodo(e.target.id)
     }
 
@@ -51,7 +51,7 @@ const TodoList = (props) => {
 
     const onStatusChange = (event) => {
         const statVal = event.target.value
-        console.log(statVal)
+        // console.log(statVal)
         if(statVal == "Completed"){
             document.getElementById("statusnCompSel").className="comp"
         }
@@ -64,7 +64,7 @@ const TodoList = (props) => {
  
 return (
     <div>
-        {console.log("In TODOLIST Comp RELOAD data: ", props.todos)}
+        {console.log("current Data to load/re-load the TodosList", props.todos)}
         
             <form onSubmit={modifyTodo}>
                 <div className="card" style={
@@ -76,7 +76,7 @@ return (
                     <div className = "card-body">
                         <label htmlFor="name"><b>Name :</b></label> 
                         <input type="text" id="todo-val-name" value={props.todos.name} disabled></input> <br />
-                        {console.log("Checking Desc in CARDS:", props.todos.description)}
+                        {/* {console.log("Checking Desc in CARDS:", props.todos.description)} */}
                         <label htmlFor="desc"><b>Description:</b></label> 
                         <input type="text" id="todo-val-desc" value={props.todos.description} disabled></input> <br /><br />
                         <b>Status:</b> 

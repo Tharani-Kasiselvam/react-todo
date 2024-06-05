@@ -77,7 +77,7 @@ const App = () => {
   }
 
   const removeTodo = (rmvId) => {
-    console.log("Inside DEL/REMOVE : ",rmvId)
+    // console.log("Inside DEL/REMOVE : ",rmvId)
     const todos_afterDel = todosList.filter(obj => obj.id != rmvId)
     console.log(todos_afterDel)
     setTodos(todos_afterDel)

@@ -6,17 +6,32 @@ import TodoList from './TodoList'
 const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
   const {addTodo,todosList,updatereloadTodo,reloadTodo} = useContext(TodoContext)
   const [todoSelStatus,settodoSelStatus] = useState("All")
+  const [hdrStatus,sethdrStatus] = useState("All")
 
   let todoArr = [];
-  //Loading Todos List
-   const todoListLoad = (tmptodosList) =>{ 
+  //Re-Loading Todos List
+    
+   const todoListLoad = (todosList,hdrStatus) =>{ 
     todoArr = [];
-    console.log("Inside TODOLISTLOAD") 
-    for(let i=0;i<tmptodosList.length;i++){
-      console.log(tmptodosList[i])
-      todoArr.push(<TodoList key={tmptodosList[i].id} todos = {tmptodosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+    console.log("List of data to load the TodosList") 
+    let statusTodos;
+    // let j=-1;
+    //Loading Todos List based on the Overall Status Filter
+    for(let i=0;i<todosList.length;i++){
+      console.log(todosList[i])
+      console.log("Inside elseIf of hdrstatus : ",hdrStatus,"---todoStatus:", todosList[i].status)
+
+      if(hdrStatus=='All'){
+        todoArr.push(<TodoList key={todosList[i].id} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+      }
+      else if(todosList[i].status == hdrStatus){
+        // j++
+        // statusTodos = todosList.filter(todoObj => todoObj.status==hdrStatus)
+        // console.log("Compelted StatusTodos:",statusTodos[0])
+        todoArr.push(<TodoList key={todosList[i]} todos = {todosList[i]} setEditName={setEditName} setEditDesc={setEditDesc} todoSelStatus = {todoSelStatus} />)
+      }
     }
-  }
+   }
   
   //loding the new Todos before adding into the coponent
   const loadTodo = (e) => {
@@ -25,7 +40,7 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
     const desc = e.target[1].value
     const status = "Not Completed"
     console.log(e)
-    console.log("Checking Desc value: ", e.target[1].value)
+    // console.log("Checking Desc value: ", e.target[1].value)
     addTodo (name, desc, status)
     setEditName("")
     setEditDesc("")
@@ -34,10 +49,22 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
   //On changing the header Status Filter -- Need assistance
    const onSelectChange = (event) => {
     console.log("dropdown sel:",event.target.value)
-    const selectedStatus = event.target.value
-    
-    const statusTodos = todosList.filter(todoObj => todoObj.status==selectedStatus)
-    todoListLoad(statusTodos)
+    sethdrStatus(event.target.value)
+    console.log("State change dropdown sel:",hdrStatus)
+    // const selectedStatus = event.target.value
+    // const statusTodos = todosList.filter(todoObj => todoObj.status==selectedStatus)
+    // todoListLoad(statusTodos)
+    }
+
+    const setStatusColor = () => {
+      if(hdrStatus=="All")
+        return "orange"
+
+      else if(hdrStatus=="Completed")
+        return "#19d20f"
+
+      else
+        return "yellow"
     }
   
     
@@ -56,17 +83,17 @@ const Header = ({setEditName,setEditDesc,editName,editDesc}) => {
         <div className="list-head">
             <div className="mytodo">My Todos</div>
             <div className="status_filter">Status Filter:
-              <select id="hdrSelect" className="All" onChange={onSelectChange}>
-                <option className="all" value="All" selected>All</option> 
+              <select id="hdrSelect" className="All" onChange={onSelectChange} style={{backgroundColor: setStatusColor()}}>
+                <option className="all" value="All" selected >All</option> 
                 <option className="comp" value="Completed">Completed</option> 
                 <option className="ncomp" value="Not Completed">Not Completed</option> 
               </select> 
             </div>
         </div>
-        {console.log("In Header Comp curr RELOAD TODO values: ",reloadTodo)}
-        {console.log("In Header Comp curr ACTUAL TODO values: ",todosList)}
+        {/* {console.log("In Header Comp curr RELOAD TODO values: ",reloadTodo)}
+        {console.log("In Header Comp curr ACTUAL TODO values: ",todosList)} */}
         <div className="loadtodo">
-          {todoListLoad(todosList)}
+          {todoListLoad(todosList,hdrStatus)}
           {todoArr}
         </div>
         </div>
