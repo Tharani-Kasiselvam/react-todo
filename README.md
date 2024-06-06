@@ -1,11 +1,11 @@
 # MyTodo
 
 **Description**   
-&emsp;This project is to Note down our daily activities and seggregate them using a Name and maintaining a Status whether it is completed or not.   
-&nbsp;We have a feature to enable new set of Todods and each Todod are designed with Name, Description, Status and additional Features to Edit or Delete the Todos
+&emsp;&emsp;-This project is to Note down our daily activities and seggregate them using a Name and maintaining a Status whether it is completed or not.   
+&emsp;&emsp;-We have a feature to enable new set of Todods and each Todod are designed with Name, Description, Status and additional Features to Edit or Delete the Todos
 
 **Implmentation**   
-    - *useState* 
+    - *useState*   
         a. to maintain individual Status in Overall Filter and in each Todos   
         b. Todo Form entries   
         c. FormIds selection during Todo Edit, Todo Delete, Todo Status change    
