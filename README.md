@@ -26,4 +26,8 @@
     5. Tracking of Overall Status to filter **All/Completed/Not Completed** Todos.   
     6. *Removal* of Todos which are not required   
 
+***Sample Image***   
+<img width="773" alt="image" src="https://github.com/Tharani-Kasiselvam/react-todo/assets/162134346/7bdadfd5-601d-44c8-b8df-a6d1044f6763">
+
+
 ***Author:Tharani K***
