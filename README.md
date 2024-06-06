@@ -5,18 +5,18 @@
 &emsp;&emsp;-We have a feature to enable new set of Todods and each Todod are designed with Name, Description, Status and additional Features to Edit or Delete the Todos
 
 **Implmentation**   
-    &emsp;&emsp;- **useState**   
-        &emsp;&emsp;a. to maintain individual Status in Overall Filter and in each Todos   
-        &emsp;&emsp;b. Todo Form entries   
-        &emsp;&emsp;c. FormIds selection during Todo Edit, Todo Delete, Todo Status change    
-        &emsp;&emsp;d. Color changes maintaines based on the value selection (All-Orange/Completed-Green/Not Completed-Yellow)   
-    &emsp;&emsp;- **Context API** (Methods and Variables)   
-        &emsp;&emsp;a. to render the entire TodoList based on State changes   
-       &emsp;&emsp; b. to ADD New Todos   
-        &emsp;&emsp;c. to DELETE selected Todos   
-        &emsp;&emsp;d. to Track the selection of FormIds [to edit/delete/status change in individual Todos]   
-        &emsp;&emsp;e. To maintain the Overall Status and individual Todo Status   
-        &emsp;&emsp;f. Tracking of latest Todo Name/Description of to re-load for EDITING existing Todo Name/Description   
+&emsp;&emsp;- **useState**   
+        &emsp;&emsp;&emsp;a. to maintain individual Status in Overall Filter and in each Todos   
+        &emsp;&emsp;&emsp;b. Todo Form entries   
+        &emsp;&emsp;&emsp;c. FormIds selection during Todo Edit, Todo Delete, Todo Status change    
+        &emsp;&emsp;&emsp;d. Color changes maintaines based on the value selection (All-Orange/Completed-Green/Not Completed-Yellow)   
+&emsp;&emsp;- **Context API** (Methods and Variables)   
+        &emsp;&emsp;&emsp;a. to render the entire TodoList based on State changes   
+        &emsp;&emsp;&emsp;b. to ADD New Todos   
+        &emsp;&emsp;&emsp;c. to DELETE selected Todos   
+        &emsp;&emsp;&emsp;d. to Track the selection of FormIds [to edit/delete/status change in individual Todos]   
+        &emsp;&emsp;&emsp;e. To maintain the Overall Status and individual Todo Status   
+        &emsp;&emsp;&emsp;f. Tracking of latest Todo Name/Description of to re-load for EDITING existing Todo Name/Description   
 
 ***Outcome***   
     &emsp;&emsp;1. Addition of *NEW* Todos.   
