@@ -5,8 +5,7 @@ import TodoList from './TodoList'
 export const TodoContentsContext = createContext()
 
 const Header = () => {
-  const { addTodo, statFormId, todoStat, setEditName, setEditDesc, editName, editDesc } = useContext(TodoContext)
-  const [todoSelStatus, settodoSelStatus] = useState("All")
+  const { addTodo, setEditName, setEditDesc, editName, editDesc } = useContext(TodoContext)
   const [hdrStatus, sethdrStatus] = useState("All")
 
   //loding the new Todos before adding into the component
